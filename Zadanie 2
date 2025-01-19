@@ -1,0 +1,86 @@
+#include <iostream>
+
+// Klasa bazowa Robot
+class Robot {
+public:
+    virtual void operacja() = 0; // metoda wirtualna
+    virtual ~Robot() = default; // destruktor
+};
+// Klasa dodatkowa Robot
+class RobotR {
+public:
+    virtual void operacja() = 0; // metoda wirtualna
+    virtual ~RobotR() = default; // destruktor
+};
+// Klasa RobotRysiek 
+class RobotRysiek : public RobotR {
+public:
+    void operacja() override {
+        std::cout << "Robot Rysiek przedstawia swoje specyfikacje\n";
+    }
+};
+// Klasa RobotPodstawowy 
+class RobotPodstawowy : public Robot {
+public:
+    void operacja() override {
+        std::cout << "Robot Rysiek porusza się\n";
+    }
+};
+
+// Dekorator RobotZKamera
+class RobotZKamera : public Robot {
+    Robot* robot; // Wskaźnik do dekorowanego robota
+public:
+    RobotZKamera(Robot* r) : robot(r) {}
+    void operacja() override {
+        robot->operacja(); // Wywołanie operacji bazowej
+        std::cout << "Robot Rysiek ma kamerę\n";
+    }
+};
+
+// Dekorator RobotRysiekZCzujnikiemTemperatury
+class RobotRysiekZCzujnikiemTemperatury : public Robot {
+    Robot* robot;
+public:
+    RobotRysiekZCzujnikiemTemperatury(Robot* r) : robot(r) {}
+    void operacja() override {
+        robot->operacja();
+        std::cout << "Robot Rysiek ma czujnik temperatury\n";
+    }
+};
+
+// Dekorator RobotRysiekZDzwiekiem
+class RobotRysiekZDzwiekiem : public Robot {
+    Robot* robot;
+public:
+    RobotRysiekZDzwiekiem(Robot* r) : robot(r) {}
+    void operacja() override {
+        robot->operacja();
+        std::cout << "Robot Ryszard ma system dźwiękowy\n";
+    }
+};
+
+int main() {
+    RobotR* robotr = new RobotRysiek(); // Tworzymy podstawowego robota
+    robotr->operacja();
+    
+    Robot* robot = new RobotPodstawowy(); // Tworzymy podstawowego robota
+    robot->operacja();
+
+    std::cout << "\nDekorowanie robota Ryśka o kamerę:\n";
+    robot = new RobotZKamera(robot); // Dekorujemy robota o kamerę
+    robot->operacja();
+
+    std::cout << "\nDekorowanie robota Ryśka o czujnik temperatury:\n";
+    robot = new RobotRysiekZCzujnikiemTemperatury(robot); // Dekorujemy robota o czujnik temperatury
+    robot->operacja();
+
+    std::cout << "\nDekorowanie robota Ryśka o system dźwiękowy:\n";
+    robot = new RobotRysiekZDzwiekiem(robot); // Dekorujemy robota o system dźwiękowy
+    robot->operacja();
+
+    delete robot;
+    delete robotr;
+    return 0;
+}
+
