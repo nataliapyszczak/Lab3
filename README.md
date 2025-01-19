@@ -26,5 +26,5 @@ dodatkowymi funkcjami, np. dodaniem kamery, czujnika temperatury czy systemu dź
 
 Skopiuj kod do pliku `.cpp` (np. `robot_Ryszard.cpp`). Skompiluj go za pomocą polecenia bash
 g++ -o robot_adapter robot_adapter.cpp -lm lub za pomocą przycisku w kompilatorze.
-Uruchom program bash ./robot_adapter
+Uruchom program bash ./robot_Ryszard
 Program wyświetli wynik w postaci kąta i odległości w układzie biegunowym.
